@@ -4,7 +4,7 @@ import './Revision.css';
 import './accordionAnimation.css'; // ✅ Import animation CSS
 
 const RevisionComponent = () => {
-  const API_URL = 'http://localhost:5000/api/questions';
+ const API_URL = import.meta.env.VITE_API_URL;
   const [questions, setQuestions] = useState([]);
   const [subjects, setSubjects] = useState([]);
   const [selectedSubject, setSelectedSubject] = useState('MERN');
@@ -42,7 +42,7 @@ const RevisionComponent = () => {
 
   const fetchSubjects = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/subjects');
+      const response =  await axios.get(`${API_URL}/api/subjects`);
       setSubjects(response.data || []);
     } catch (error) {
       console.error('Error fetching subjects:', error);
