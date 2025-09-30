@@ -29,7 +29,7 @@ function App() {
   const fetchQuestions = async (subject = '') => {
     try {
       setError(null);
-      const url = subject ? `${API_URL}/api/questions?subject=${subject}` : API_URL;
+      const url = `${API_URL}/api/questions?subject=${subject}`;
       const response = await axios.get(url);
       setQuestions(response.data || []);
     } catch (error) {
