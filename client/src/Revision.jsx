@@ -28,7 +28,7 @@ const RevisionComponent = () => {
     try {
       setLoading(true);
       setError(null);
-      const response = await axios.get(`${API_URL}?subject=${subject}`);
+      const response = await axios.get(`${API_URL}/api/questions?subject=${subject}`);
       setQuestions(response.data || []);
       setExpandedQuestions(new Set()); // collapse all
     } catch (error) {

@@ -29,7 +29,7 @@ function App() {
   const fetchQuestions = async (subject = '') => {
     try {
       setError(null);
-      const url = subject ? `${API_URL}?subject=${subject}` : API_URL;
+      const url = subject ? `${API_URL}/api/questions?subject=${subject}` : API_URL;
       const response = await axios.get(url);
       setQuestions(response.data || []);
     } catch (error) {
@@ -43,7 +43,7 @@ function App() {
 
   const fetchSubjects = async () => {
     try {
-      const response = await axios.get('/api/subjects');
+      const response = await axios.get(`${API_URL}/api/subjects`);
       setSubjects(response.data || []);
     } catch (error) {
       console.error('Error fetching subjects:', error);
