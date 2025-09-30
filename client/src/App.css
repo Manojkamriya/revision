@@ -40,7 +40,6 @@ body {
   display: flex;
   justify-content: center;
   gap: 2rem;
-  margin-bottom: 2rem;
   flex-wrap: wrap;
 }
 
@@ -69,16 +68,13 @@ select, input, button {
 }
 
 button {
-  background: #667eea;
+  background: #1c1b1b;
   color: white;
   border: none;
   cursor: pointer;
   transition: background 0.3s;
 }
 
-button:hover {
-  background: #5a6fd8;
-}
 
 button.danger {
   background: #e74c3c;
@@ -100,6 +96,8 @@ button.danger:hover {
   border: 1px solid #e5e7eb;
   border-radius: 12px;
   padding: 1.5rem;
+  max-width: 400px;
+  overflow: scroll;
   margin-bottom: 1.5rem;
   transition: all 0.3s ease;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
@@ -129,11 +127,11 @@ button.danger:hover {
   display: inline-block;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  padding: 0.375rem 0.875rem;
+  padding: 0.375rem 1.975rem;
   border-radius: 20px;
   font-size: 0.813rem;
   font-weight: 600;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -143,7 +141,8 @@ button.danger:hover {
   font-size: 1.125rem;
   font-weight: 500;
   color: #1f2937;
-  margin-bottom: 1.5rem;
+ margin-bottom: 10px;
+ height: auto;
   line-height: 1.6;
 }
 
@@ -221,7 +220,7 @@ button {
   cursor: pointer;
   transition: all 0.2s ease;
   font-family: inherit;
-  background: #667eea;
+  background: #1c1b1b;
   color: white;
 }
 
@@ -235,13 +234,12 @@ button:active {
 }
 
 button[type="button"] {
-  background: #6b7280;
+  background: white;
+  border: 1px solid #1c1b1b;
+  color: #1c1b1b;
 }
 
-button[type="button"]:hover {
-  background: #4b5563;
-  box-shadow: 0 4px 12px rgba(107, 114, 128, 0.3);
-}
+
 
 /* Actions Section */
 .actions {
@@ -254,14 +252,12 @@ button[type="button"]:hover {
 
 .actions button {
   flex: 1;
-  background: #f3f4f6;
-  color: #374151;
+  background: #ffffff;
+  border: 1px solid #1c1b1b;
+  color: #1c1b1b;
 }
 
-.actions button:hover {
-  background: #e5e7eb;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
+
 
 .actions button.danger {
   background: #fef2f2;

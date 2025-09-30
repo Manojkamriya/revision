@@ -15,7 +15,7 @@ function App() {
 
   // Form state
   const [formData, setFormData] = useState({
-    subject: '',
+    subject: 'sql',
     question: '',
     correctAnswer: '',
     difficulty: 'medium'
@@ -354,7 +354,7 @@ function QuestionCard({ question, onEdit, onDelete }) {
         </div>
       )}
 
-      <div className="actions" style={{ marginTop: '1rem' }}>
+      <div className="actions" style={{ marginTop: '0.4rem' }}>
         <button onClick={() => onEdit(question)}>Edit</button>
         <button className="danger" onClick={() => onDelete(question._id)}>Delete</button>
       </div>
