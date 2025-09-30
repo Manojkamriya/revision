@@ -3,10 +3,12 @@
     "concurrently": "^9.2.1",
     "nodemon": "^3.1.10"
   },
-   "scripts": {
-    "client": "npm run dev --prefix client",
-    "server": "npm run dev --prefix server",
-    "build": "npm run build --prefix client",
-      "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\""
+  "scripts": {
+    "dev:client": "npm run dev --prefix client",
+    "dev:server": "npm run dev --prefix server",
+    "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
+    "build:client": "npm run build --prefix client",
+    "build:server": "npm run build --prefix server",
+    "build": "concurrently \"npm run build:server\" \"npm run build:client\""
   }
 }
