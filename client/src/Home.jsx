@@ -73,7 +73,7 @@ function App() {
   const handleCreateQuestion = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(API_URL, formData);
+      await axios.post(`${API_URL}/api/questions`, formData);
       setShowModal(false);
       setFormData({ subject: '', question: '', correctAnswer: '', difficulty: 'medium' });
       fetchQuestions(selectedSubject);
@@ -87,7 +87,7 @@ function App() {
   const handleUpdateQuestion = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`${API_URL}/${editingQuestion._id}`, formData);
+      await axios.put(`${API_URL}/api/questions/${editingQuestion._id}`, formData);
       setShowModal(false);
       setEditingQuestion(null);
       setFormData({ subject: '', question: '', correctAnswer: '', difficulty: 'medium' });
@@ -102,7 +102,7 @@ function App() {
   const handleDeleteQuestion = async (id) => {
     if (window.confirm('Are you sure you want to delete this question?')) {
       try {
-        await axios.delete(`${API_URL}/${id}`);
+        await axios.delete(`${API_URL}/api/questions/${id}`);
         fetchQuestions(selectedSubject);
         fetchSubjects();
       } catch (error) {
