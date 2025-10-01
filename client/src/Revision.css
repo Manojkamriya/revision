@@ -208,7 +208,7 @@
 .question-number {
   color: #666;
   font-weight: 700;
-  min-width: 30px;
+  width: 10%;
   font-size: 1.1rem;
 }
 
@@ -216,6 +216,8 @@
   font-weight: 600;
   color: #2c3e50;
   font-size: 1.05rem;
+   padding-right: 10px;
+  width: 82%;
   line-height: 1.4;
 }
 
@@ -252,6 +254,7 @@
 
 .expand-icon {
   font-size: 1.4rem;
+  width: 8%;
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   color: #667eea;
   font-weight: 700;

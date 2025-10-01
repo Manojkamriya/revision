@@ -320,13 +320,19 @@ function QuestionCard({ question, onEdit, onDelete }) {
 
       {!answered ? (
         <form onSubmit={handleSubmit} className="answer-section">
-          <input
-            type="text"
-            className="answer-input"
-            placeholder="Your answer..."
-            value={userAnswer}
-            onChange={(e) => setUserAnswer(e.target.value)}
-          />
+         
+          <textarea
+  className="answer-input"
+  placeholder="Your answer..."
+  value={userAnswer}
+ rows={3} 
+  onChange={(e) => {
+    setUserAnswer(e.target.value);
+    e.target.style.height = 'auto';
+    e.target.style.height = e.target.scrollHeight + 'px';
+  }}
+ 
+/>
           <div className='answer-buttons'>
 <button type="submit">Submit Answer</button>
         

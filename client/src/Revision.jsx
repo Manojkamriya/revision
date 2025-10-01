@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Revision.css'; 
-import './accordionAnimation.css'; // ✅ Import animation CSS
+import './accordionAnimation.css'; 
 
 const RevisionComponent = () => {
  const API_URL = import.meta.env.VITE_API_URL;
   const [questions, setQuestions] = useState([]);
   const [subjects, setSubjects] = useState([]);
-  const [selectedSubject, setSelectedSubject] = useState('MERN');
+  const [selectedSubject, setSelectedSubject] = useState("MERN");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [expandedQuestions, setExpandedQuestions] = useState(new Set());
@@ -24,16 +24,36 @@ const RevisionComponent = () => {
     }
   }, [selectedSubject]);
 
-  const fetchQuestions = async (subject) => {
+  const fetchQuestions = async (subject, forceRefresh = false) => {
     try {
       setLoading(true);
       setError(null);
-      const response = await axios.get(`${API_URL}/api/questions?subject=${subject}`);
-      setQuestions(response.data || []);
-      setExpandedQuestions(new Set()); // collapse all
+
+      // check cache if not force refreshing
+      if (!forceRefresh) {
+        const cachedData = localStorage.getItem(`questions_${subject}`);
+        if (cachedData) {
+          setQuestions(JSON.parse(cachedData));
+          setExpandedQuestions(new Set());
+          setLoading(false);
+          return;
+        }
+      }
+
+      // fetch from API
+      const response = await axios.get(
+        `${API_URL}/api/questions?subject=${subject}`
+      );
+      const data = response.data || [];
+
+      setQuestions(data);
+      setExpandedQuestions(new Set());
+
+      // save to cache
+      localStorage.setItem(`questions_${subject}`, JSON.stringify(data));
     } catch (error) {
-      console.error('Error fetching questions:', error);
-      setError('Failed to fetch questions');
+      console.error("Error fetching questions:", error);
+      setError("Failed to fetch questions");
       setQuestions([]);
     } finally {
       setLoading(false);
@@ -42,10 +62,10 @@ const RevisionComponent = () => {
 
   const fetchSubjects = async () => {
     try {
-      const response =  await axios.get(`${API_URL}/api/subjects`);
+      const response = await axios.get(`${API_URL}/api/subjects`);
       setSubjects(response.data || []);
     } catch (error) {
-      console.error('Error fetching subjects:', error);
+      console.error("Error fetching subjects:", error);
       setSubjects([]);
     }
   };
@@ -74,6 +94,18 @@ const RevisionComponent = () => {
     setExpandedQuestions(new Set());
   };
 
+  const clearCache = () => {
+    // remove all subject cache
+    Object.keys(localStorage).forEach((key) => {
+      if (key.startsWith("questions_")) {
+        localStorage.removeItem(key);
+      }
+    });
+    // refetch fresh data for current subject
+    fetchQuestions(selectedSubject, true);
+  };
+
+
   return (
     <div className="container">
       <div className="header">
@@ -99,6 +131,7 @@ const RevisionComponent = () => {
           <div>
             <button onClick={expandAll}>Expand All</button>
             <button onClick={collapseAll}>Collapse All</button>
+             <button onClick={clearCache}>Refresh</button>
           </div>
         )}
       </div>
@@ -128,23 +161,18 @@ const RevisionComponent = () => {
                     className="accordion-header"
                     onClick={() => toggleQuestion(question._id)}
                   >
-                    <div className="question-content">
+                    <div className="question-content"> 
                       <span className="question-number">{index + 1}.</span>
                       <span className="question-text">{question.question}</span>
-                    </div>
-                    <div className="question-meta">
-                      {/* <span className={getDifficultyClass(question.difficulty)}>
-                        {question.difficulty}
-                      </span> */}
-                      <span
+                       <span
                         className={`expand-icon ${isExpanded ? 'expanded' : ''}`}
                       >
                         {isExpanded ? '-' : '+'}
                       </span>
-                    </div>
+                       </div>
+ 
                   </div>
 
-                  {/* ✅ Keep element mounted for animation */}
                   <div
                     className={`accordion-content ${
                       isExpanded ? 'open' : 'closed'
@@ -158,27 +186,7 @@ const RevisionComponent = () => {
                         </div>
                       </div>
 
-                      {question.userAnswer && (
-                        <div className="answer-section">
-                          <span className="answer-label">Your Answer:</span>
-                          <div
-                            className={`answer-content ${
-                              question.isCorrect ? 'correct' : 'incorrect'
-                            }`}
-                          >
-                            {question.userAnswer}
-                            <span
-                              className={`answer-status ${
-                                question.isCorrect ? 'correct' : 'incorrect'
-                              }`}
-                            >
-                              {question.isCorrect
-                                ? '✓ Correct'
-                                : '✗ Incorrect'}
-                            </span>
-                          </div>
-                        </div>
-                      )}
+                    
                     </div>
                   </div>
                 </div>
