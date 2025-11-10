@@ -180,7 +180,7 @@ const RevisionComponent = () => {
                   >
                     <div className="accordion-content-inner">
                       <div className="answer-section">
-                        <span className="answer-label">Correct Answer:</span>
+                        <span className="answer-label" style={{ whiteSpace: 'pre-wrap'}}>Correct Answer:</span>
                         <div className="answer-content correct">
                           {question.correctAnswer}
                         </div>

@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css'
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import RichTextEditor from './RichTextEditor';
+import Test from "./Test"
 const API_URL = import.meta.env.VITE_API_URL;
 
 function App() {
@@ -171,7 +175,11 @@ function App() {
   }
 
   return (
+    <>
+      <Test/>
+  
     <div className="container">
+    
       <div className="header">
         <h1>CS Revision App</h1>
         <p>Personalized Computer Science Question Bank</p>
@@ -241,6 +249,7 @@ function App() {
         />
       )}
     </div>
+      </>
   );
 }
 
@@ -349,7 +358,7 @@ function QuestionCard({ question, onEdit, onDelete }) {
           </div>
 
           {showAnswer && (
-            <div className="correct-answer" style={{ background: '#e6ffed', padding: '.5rem', borderRadius: '4px' }}>
+            <div className="correct-answer" style={{ background: '#e6ffed', padding: '.5rem', borderRadius: '4px', whiteSpace: 'pre-wrap', }}>
               Correct answer: {question.correctAnswer}
             </div>
           )}
@@ -408,7 +417,15 @@ function QuestionModal({ formData, setFormData, onSubmit, onClose, isEditing, su
               rows="3"
               required
             />
+           
           </div>
+ {/* <div className="form-group">
+  <label>Question:</label>
+  <RichTextEditor
+    value={formData.question}
+    onChange={(value) => setFormData({ ...formData, question: value })}
+  />
+</div> */}
 
           <div className="form-group">
             <label>Correct Answer:</label>
